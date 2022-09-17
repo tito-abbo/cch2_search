@@ -1,12 +1,9 @@
-##' Base function to query the iDigBio API
+##' Base function to query the CCH2 API
 ##'
-##' This function is wrapped for media and specimen record searches. Please
-##' consider using \code{\link{idig_search_media}} or
-##' \code{\link{idig_search_records}} instead as they supply nice defaults to
-##' this function depending on the type of records desired.
+##' This function is adapted from ridigbio, idig_search https://github.com/iDigBio/ridigbio
+##' original author @author Francois Michonneau
+##' fork by Tito Abbo 
 ##'
-##' Fuller documentation of parameters is in the
-##' \code{\link{idig_search_records}} function's help.
 ##'
 ##' Exported to facilitate wrapping this package in other packages.
 ##' @title Basic searching of iDigBio records
@@ -22,7 +19,6 @@
 ##' make paging safe
 ##' @param ... additional parameters
 ##' @return a data frame
-##' @author Francois Michonneau
 ##' @export
 ##' @examples
 ##' \dontrun{
@@ -30,7 +26,7 @@
 ##' idig_search(type="media", rq=list(genus="acer"), limit=10)
 ##' }
 ##'
-idig_search <- function(type="records", mq=FALSE, rq=FALSE, fields=FALSE,
+cch2_search <- function(type="records", mq=FALSE, rq=FALSE, fields=FALSE,
                         max_items=100000, limit=0, offset=0, sort=FALSE, ...) {
   
   # Construct body of request to API
@@ -41,9 +37,9 @@ idig_search <- function(type="records", mq=FALSE, rq=FALSE, fields=FALSE,
   # has been benchmarked and appears make things ~20% slower on a gigabit
   # connection: 66s for 100,000 limit
   if (!inherits(sort, "logical")) {
-    query[["sort"]] <- c(sort, "uuid")
+    query[["sort"]] <- c(sort, "id")
   }else{
-    query[["sort"]] <- c("uuid")
+    query[["sort"]] <- c("id")
   }
 
   if (!inherits(rq, "logical")) {
