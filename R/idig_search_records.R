@@ -121,12 +121,12 @@
 idig_search_records <- function(rq, fields=FALSE, max_items=100000, limit=0,
                         offset=0, sort=FALSE, ...) {
 
-  DEFAULT_FIELDS = c('uuid',
+  DEFAULT_FIELDS = c('id',
                      'occurrenceid',
                      'catalognumber',
                      'family',
                      'genus',
-                     'scientificname',
+                     'scientificName',
                      'country',
                      'stateprovince',
                      'geopoint',
@@ -148,7 +148,7 @@ idig_search_records <- function(rq, fields=FALSE, max_items=100000, limit=0,
     stop("Invalid value for fields")
   }
 
-  idig_search(rq=rq, fields=fields, max_items=max_items, limit=limit,
+  cch2_search(rq=rq, fields=fields, max_items=max_items, limit=limit,
               offset=offset, sort=sort, ...)
 
 }
